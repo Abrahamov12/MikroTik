@@ -1,4 +1,4 @@
-:global LomoMikrotikBotToken
+:global BotToken
 :global chatId
 
 :global svr01down
@@ -96,5 +96,5 @@
 	adc01\_$adc01checkmsg%0A\
 	adc02\_$adc02checkmsg%0A\
 	rdp01\_$rdp01checkmsg"
-	/tool fetch url="https://api.telegram.org/bot$LomoMikrotikBotToken/sendMessage?chat_id=$chatId&text=$msg" keep-result=no
+	/tool fetch url="https://api.telegram.org/bot$BotToken/sendMessage?chat_id=$chatId&text=$msg" keep-result=no
 }
