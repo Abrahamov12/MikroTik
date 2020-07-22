@@ -1,6 +1,6 @@
 :global ispDown
 :global ispDownTime
-:global LomoMikrotikBotToken
+:global BotToken
 :global chatId
 
 :local sendmsg false
@@ -20,8 +20,9 @@
 	}
 }
 
+
 :if ($sendmsg = true && $ispDownTime != " ") do={
 	:local msg "Been offline since $ispDownTime"
     :set $ispDownTime " "
-	/tool fetch url="https://api.telegram.org/bot$LomoMikrotikBotToken/sendMessage?chat_id=$chatId&text=$msg" keep-result=no
+	/tool fetch url="https://api.telegram.org/bot$BotToken/sendMessage?chat_id=$chatId&text=$msg" keep-result=no
 }
