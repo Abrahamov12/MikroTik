@@ -1,4 +1,6 @@
-:global internetdown
+:global LomoMikrotikBotToken
+:global chatId
+
 :global svr01down
 :global svr02down
 :global adc01down
@@ -7,34 +9,18 @@
 
 :local sendmsg false
 
-:local dnscheck [/ping 8.8.8.8 count=2]
 :local svr01check [/ping svr01.lomo.home count=1]
 :local svr02check [/ping svr02.lomo.home count=1]
 :local adc01check [/ping adc01.lomo.home count=1]
 :local adc02check [/ping adc02.lomo.home count=1]
 :local rdp01check [/ping rdp01.lomo.home count=1]
 
-:local dnscheckmsg "ok"
 :local svr01checkmsg "ok"
 :local svr02checkmsg "ok"
 :local adc01checkmsg "ok"
 :local adc02checkmsg "ok"
 :local rdp01checkmsg "ok"
  
-:if (dnscheck = 0) do={
-	:if ($internetdown != true) do={
-	:set dnscheckmsg "nok"
-	:set $internetdown true
-	:set $sendmsg true
-	    }
-	} else={
-		:if ($internetdown = true) do={
-		:set dnscheckmsg "ok"
-		:set $internetdown false
-		:set $sendmsg true
-		}
-	}
-
 :if (svr01check = 0) do={
 	:if ($svr01down != true) do={
 	:set svr01checkmsg "nok"
@@ -105,12 +91,10 @@
 		}
 	}
 :if ($sendmsg = true) do={
-	:local msg "State:%0A\
-	LMTk\_\t$dnscheckmsg%0A\
-	svr01\_\_$svr01checkmsg%0A\
+	:local msg "svr01\_\_$svr01checkmsg%0A\
 	svr02\_\_$svr02checkmsg%0A\
 	adc01\_$adc01checkmsg%0A\
 	adc02\_$adc02checkmsg%0A\
 	rdp01\_$rdp01checkmsg"
-	/tool fetch url="https://api.telegram.org/bot{YOURTOKEN}>/sendMessage?chat_id={YOURCHATID}&text=$msg" keep-result=no
+	/tool fetch url="https://api.telegram.org/bot$LomoMikrotikBotToken/sendMessage?chat_id=$chatId&text=$msg" keep-result=no
 }
